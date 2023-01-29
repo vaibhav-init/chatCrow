@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "638839843745",
+    "project_id": "chat-crow-9bad3",
+    "storage_bucket": "chat-crow-9bad3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638839843745:android:a3efbeb9f3bf4ad766b9e0",
+        "android_client_info": {
+          "package_name": "com.com.vaibhav.chat.crow.chat_crow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638839843745-vgglrnlnm1kte2p91n4pcp9unh7psfra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd4y0Doq1zCyxwBPLrl8gB2dCXxFWIjPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638839843745-vgglrnlnm1kte2p91n4pcp9unh7psfra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
