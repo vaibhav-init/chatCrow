@@ -1,3 +1,4 @@
+import 'package:chat_crow/constants/router.dart';
 import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:chat_crow/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class ChatCrow extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
+      onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: const WelcomeView(),
     );
   }

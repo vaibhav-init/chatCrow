@@ -15,17 +15,9 @@ class RoundedButton extends StatelessWidget {
       onPressed: function,
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
-        fixedSize: const Size(300, 50),
+        minimumSize: const Size(double.infinity, 50),
       ),
-      child: Text(
-        textToUse,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontFamily: 'Ubuntu',
-        ),
-      ),
+      child: Text(textToUse, style: defaultTextStyle),
     );
   }
 }
