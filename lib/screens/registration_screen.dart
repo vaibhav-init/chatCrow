@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:chat_crow/Components/rounded_button.dart';
-import 'package:chat_crow/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -46,8 +44,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onChanged: (value) {
                   email = value;
                 },
-                decoration:
-                    kInputDecoration.copyWith(hintText: 'Enter Your Email'),
               ),
               const SizedBox(
                 height: 8.0,
@@ -57,14 +53,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onChanged: (value) {
                   password = value;
                 },
-                decoration:
-                    kInputDecoration.copyWith(hintText: 'Enter Your Password'),
               ),
               const SizedBox(
                 height: 24.0,
               ),
               RoundedButton(
-                  color: Colors.teal, function: () {}, textToUse: 'Register'),
+                color: Colors.teal,
+                function: () {},
+                textToUse: 'Register',
+              ),
             ],
           ),
         ),

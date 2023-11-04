@@ -5,11 +5,12 @@ class RoundedButton extends StatelessWidget {
 
   final String textToUse;
   final Function function;
-  RoundedButton(
-      {super.key,
-      required this.color,
-      required this.function,
-      required this.textToUse});
+  const RoundedButton({
+    super.key,
+    required this.color,
+    required this.function,
+    required this.textToUse,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
