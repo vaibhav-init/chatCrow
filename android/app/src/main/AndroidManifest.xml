@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.com.vaibhav.chat.crow.chat_crow">
+    package="com.app.chat.crow">
    <application
         android:label="chat_crow"
         android:name="${applicationName}"

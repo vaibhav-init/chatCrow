@@ -1,4 +1,4 @@
-package com.com.vaibhav.chat.crow.chat_crow
+package com.app.chat.crow
 
 import io.flutter.embedding.android.FlutterActivity
 
