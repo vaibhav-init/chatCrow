@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:chat_crow/Components/rounded_button.dart';
 import 'package:chat_crow/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'chat_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String email = 'null';
   String password = 'null';
-  final _auth = FirebaseAuth.instance;
+
   bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {
                   email = value;
-                  print(email);
                 },
                 decoration:
                     kInputDecoration.copyWith(hintText: 'Enter Your Email'),
@@ -58,7 +56,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 onChanged: (value) {
                   password = value;
-                  print(password);
                 },
                 decoration:
                     kInputDecoration.copyWith(hintText: 'Enter Your Password'),
@@ -67,26 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                  color: Colors.teal,
-                  function: () async {
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    try {
-                      final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newUser != null) {
-                        Navigator.pushNamed(context, ChatScreen.id);
-                      }
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  textToUse: 'Register'),
+                  color: Colors.teal, function: () {}, textToUse: 'Register'),
             ],
           ),
         ),
