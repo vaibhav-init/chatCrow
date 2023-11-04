@@ -1,3 +1,4 @@
+import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:chat_crow/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,10 @@ class ChatCrow extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "ChatCrow",
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: const WelcomeView(),
     );
   }
 }
