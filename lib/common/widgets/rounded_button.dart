@@ -17,7 +17,12 @@ class RoundedButton extends StatelessWidget {
         backgroundColor: primaryColor,
         minimumSize: const Size(double.infinity, 50),
       ),
-      child: Text(textToUse, style: defaultTextStyle),
+      child: Text(
+        textToUse,
+        style: defaultTextStyle.copyWith(
+          color: Colors.black,
+        ),
+      ),
     );
   }
 }

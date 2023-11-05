@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case LoginView.routeName:
+    case LoginView.route:
       return MaterialPageRoute(builder: (context) => const LoginView());
 
     default:

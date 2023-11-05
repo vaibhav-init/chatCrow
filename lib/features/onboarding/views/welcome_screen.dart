@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:chat_crow/features/auth/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chat_crow/common/widgets/rounded_button.dart';
@@ -56,9 +57,13 @@ class _WelcomeViewState extends State<WelcomeView>
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: RoundedButton(
-                  function: () {},
-                  textToUse: "Let's Go",
+                child: Hero(
+                  tag: 'button',
+                  child: RoundedButton(
+                    function: () =>
+                        Navigator.pushNamed(context, LoginView.route),
+                    textToUse: "Let's Go",
+                  ),
                 ),
               ),
             ),
