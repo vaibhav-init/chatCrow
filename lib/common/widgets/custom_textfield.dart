@@ -50,6 +50,7 @@ class CustomPhoneTextField extends StatelessWidget {
           ),
         ),
       ),
+      keyboardType: TextInputType.number,
     );
   }
 }

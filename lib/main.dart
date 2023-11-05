@@ -3,6 +3,7 @@ import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:chat_crow/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +11,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const ChatCrow());
+  runApp(
+    const ProviderScope(
+      child: ChatCrow(),
+    ),
+  );
 }
 
 class ChatCrow extends StatelessWidget {

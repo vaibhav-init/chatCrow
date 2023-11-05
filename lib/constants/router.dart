@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginView.route:
-      return MaterialPageRoute(builder: (context) => const LoginView());
+      return MaterialPageRoute(
+        builder: (context) => const LoginView(),
+      );
     case OtpView.route:
       final verificationId = settings.arguments as String;
       return MaterialPageRoute(

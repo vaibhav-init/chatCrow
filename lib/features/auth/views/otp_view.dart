@@ -1,3 +1,4 @@
+import 'package:chat_crow/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class OtpView extends StatelessWidget {
@@ -10,6 +11,23 @@ class OtpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 30,
+          ),
+        ),
+        elevation: 3,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Waiting for OTP....',
+          style: defaultCustomTextStyle,
+        ),
+      ),
+    );
   }
 }

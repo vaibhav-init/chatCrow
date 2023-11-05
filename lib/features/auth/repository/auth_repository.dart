@@ -3,6 +3,14 @@ import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final authRepositoryProvider = Provider(
+  (ref) => AuthRepository(
+    auth: FirebaseAuth.instance,
+    firestore: FirebaseFirestore.instance,
+  ),
+);
 
 class AuthRepository {
   final FirebaseAuth auth;
@@ -23,10 +31,11 @@ class AuthRepository {
         verificationFailed: (e) {
           throw Exception(e.message);
         },
-        codeSent: (String verificationId, int? resendToken) async {
+        codeSent: (String verificationId, int? resendToken) {
           Navigator.pushNamed(
             context,
             OtpView.route,
+            arguments: verificationId,
           );
         },
         codeAutoRetrievalTimeout: (String verificationId) {},

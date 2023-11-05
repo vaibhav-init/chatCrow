@@ -2,12 +2,14 @@
 
 import 'package:chat_crow/common/widgets/custom_textfield.dart';
 import 'package:chat_crow/constants/constants.dart';
+import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_crow/common/widgets/rounded_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:country_picker/country_picker.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   static const route = '/login';
   const LoginView({
     super.key,
@@ -16,7 +18,7 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   final numberController = TextEditingController();
   Country country = Country.worldWide;
 
@@ -28,14 +30,18 @@ class _LoginViewState extends State<LoginView> {
         bottomSheetHeight: MediaQuery.of(context).size.height * 0.7,
       ),
       context: context,
-      showPhoneCode:
-          true, // optional. Shows phone code before the country name.
+      showPhoneCode: true,
       onSelect: (Country selectedCountry) {
         setState(() {
           country = selectedCountry;
         });
       },
     );
+  }
+
+  void loginWithPhone(BuildContext context) {
+    String number = "+${country.phoneCode}${numberController.text.trim()}";
+    ref.read(authControllerProvider).signInWithPhoneNumber(context, number);
   }
 
   @override
@@ -89,7 +95,7 @@ class _LoginViewState extends State<LoginView> {
               child: Hero(
                 tag: 'button',
                 child: RoundedButton(
-                  function: () {},
+                  function: () => loginWithPhone(context),
                   textToUse: 'Get OTP',
                 ),
               ),
