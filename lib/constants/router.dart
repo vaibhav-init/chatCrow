@@ -13,7 +13,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
                 body: Center(
                     child: Text(
                   'Error Screen ',
-                  style: defaultTextStyle,
+                  style: defaultCustomTextStyle,
                 )),
               ));
   }

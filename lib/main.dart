@@ -24,9 +24,6 @@ class ChatCrow extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        useMaterial3: true,
-      ),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: const WelcomeView(),
     );
