@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/auth/views/details_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
@@ -71,6 +73,20 @@ class AuthRepository {
       showSnackbar(
         context: context,
         text: e.message!,
+      );
+    }
+  }
+
+  void saveUserData({
+    required String name,
+    required File? profilePic,
+    required ProviderRef ref,
+    required BuildContext context,
+  }) {
+    try {} catch (e) {
+      showSnackbar(
+        context: context,
+        text: e.toString(),
       );
     }
   }

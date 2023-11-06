@@ -45,6 +45,15 @@ class OtpView extends ConsumerWidget {
               children: [
                 const SizedBox(height: 100),
                 Pinput(
+                  onChanged: (val) {
+                    if (val.toString().length == 6) {
+                      verifyOTP(
+                        ref,
+                        context,
+                        val.toString(),
+                      );
+                    }
+                  },
                   length: 6,
                   defaultPinTheme: PinTheme(
                     height: 55,
