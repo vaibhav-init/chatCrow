@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:chat_crow/common/utils.dart';
+import 'package:chat_crow/features/auth/views/details_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +44,30 @@ class AuthRepository {
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
     } on FirebaseAuthException catch (e) {
-      // ignore: use_build_context_synchronously
+      showSnackbar(
+        context: context,
+        text: e.message!,
+      );
+    }
+  }
+
+  void verifyOTP({
+    required BuildContext context,
+    required String verificationId,
+    required String otp,
+  }) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: otp,
+      );
+      await auth.signInWithCredential(credential);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        DetailsView.route,
+        (route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
       showSnackbar(
         context: context,
         text: e.message!,

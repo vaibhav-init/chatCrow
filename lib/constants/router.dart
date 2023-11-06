@@ -1,4 +1,5 @@
 import 'package:chat_crow/constants/constants.dart';
+import 'package:chat_crow/features/auth/views/details_view.dart';
 import 'package:chat_crow/features/auth/views/login_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           builder: (context) => OtpView(
                 verificationId: verificationId,
               ));
+    case DetailsView.route:
+      return MaterialPageRoute(
+        builder: (context) => const DetailsView(),
+      );
 
     default:
       return MaterialPageRoute(
