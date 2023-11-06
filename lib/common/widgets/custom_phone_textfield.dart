@@ -1,15 +1,16 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomPhoneTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
-  final TextInputType keyboardType;
+  final Country country;
+  final VoidCallback selectCountry;
 
-  const CustomTextField({
+  const CustomPhoneTextField({
     super.key,
     required this.controller,
-    required this.hintText,
-    required this.keyboardType,
+    required this.country,
+    required this.selectCountry,
   });
 
   @override
@@ -21,7 +22,7 @@ class CustomTextField extends StatelessWidget {
       ),
       controller: controller,
       decoration: InputDecoration(
-        hintText: hintText,
+        hintText: '986**********',
         hintStyle: const TextStyle(
           fontSize: 20,
           fontFamily: 'Ubuntu',
@@ -38,8 +39,18 @@ class CustomTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(20),
         ),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(10),
+          child: InkWell(
+            onTap: selectCountry,
+            child: Text(
+              "${country.flagEmoji} +${country.phoneCode}",
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
       ),
-      keyboardType: keyboardType,
+      keyboardType: TextInputType.number,
     );
   }
 }

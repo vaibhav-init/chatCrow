@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:chat_crow/common/widgets/custom_textfield.dart';
+import 'package:chat_crow/common/widgets/custom_phone_textfield.dart';
 import 'package:chat_crow/constants/constants.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';

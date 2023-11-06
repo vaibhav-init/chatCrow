@@ -7,3 +7,6 @@ Work on progress ....... Stay tuned :)
 -> verifyOTP part stuck !!!
 
 -> otp autofill feature (TODO)
+->resend otp feature
+
+-> show progress bar on async calls

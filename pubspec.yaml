@@ -19,7 +19,8 @@ dependencies:
   flutter_svg: ^2.0.9
   country_picker: ^2.0.22
   flutter_riverpod: ^2.4.5
-  sms_autofill: ^2.3.0
+  image_picker: ^1.0.4
+  pinput: ^3.0.1
 
 dev_dependencies:
   flutter_test:
