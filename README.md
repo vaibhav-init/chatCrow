@@ -10,3 +10,4 @@ Work on progress ....... Stay tuned :)
 ->resend otp feature
 
 -> show progress bar on async calls
+-> file cropping option

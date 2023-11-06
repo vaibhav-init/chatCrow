@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/auth/views/details_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
@@ -82,8 +83,18 @@ class AuthRepository {
     required File? profilePic,
     required ProviderRef ref,
     required BuildContext context,
-  }) {
-    try {} catch (e) {
+  }) async {
+    try {
+      String uid = auth.currentUser!.uid;
+      String photoUrl = '';
+      if (profilePic != null) {
+        photoUrl =
+            await ref.read(firebaseStoreageRepositoryProvider).uploadFile(
+                  'profilePics/$uid',
+                  profilePic,
+                );
+      }
+    } catch (e) {
       showSnackbar(
         context: context,
         text: e.toString(),
