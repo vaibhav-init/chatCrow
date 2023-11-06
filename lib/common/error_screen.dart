@@ -14,7 +14,11 @@ class ErrorScreen extends StatelessWidget {
       body: Center(
         child: Text(
           error,
-          style: defaultCustomTextStyle,
+          style: defaultCustomTextStyle.copyWith(
+            color: Colors.red,
+            fontSize: 20,
+          ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

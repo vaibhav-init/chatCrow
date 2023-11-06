@@ -30,13 +30,13 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      name: map['name'] as String,
-      uid: map['uid'] as String,
-      profilePic: map['profilePic'] as String,
-      isOnline: map['isOnline'] as bool,
-      phoneNumber: map['phoneNumber'] as String,
+      name: map['name'] ?? '',
+      uid: map['uid'] ?? '',
+      profilePic: map['profilePic'] ?? '',
+      isOnline: map['isOnline'] ?? false,
+      phoneNumber: map['phoneNumber'] ?? '',
       groupId: List<String>.from(
-        (map['groupId'] as List<String>),
+        (map['groupId']),
       ),
     );
   }
