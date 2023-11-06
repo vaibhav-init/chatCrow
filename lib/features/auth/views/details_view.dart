@@ -3,17 +3,20 @@ import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/common/widgets/custom_textfield.dart';
 import 'package:chat_crow/common/widgets/rounded_button.dart';
 import 'package:chat_crow/constants/constants.dart';
+import 'package:chat_crow/features/auth/controller/auth_controller.dart';
+import 'package:chat_crow/features/auth/views/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DetailsView extends StatefulWidget {
+class DetailsView extends ConsumerStatefulWidget {
   static const route = '/update-details';
   const DetailsView({super.key});
 
   @override
-  State<DetailsView> createState() => _DetailsViewState();
+  ConsumerState<DetailsView> createState() => _DetailsViewState();
 }
 
-class _DetailsViewState extends State<DetailsView> {
+class _DetailsViewState extends ConsumerState<DetailsView> {
   final nameController = TextEditingController();
   File? image;
   void selectImage() async {
@@ -25,6 +28,29 @@ class _DetailsViewState extends State<DetailsView> {
   void dispose() {
     nameController.dispose();
     super.dispose();
+  }
+
+  void saveUserData() async {
+    String name = nameController.text.trim();
+    if (name.isNotEmpty) {
+      ref.read(authControllerProvider).saveUserDataToFirebase(
+            context,
+            name,
+            image,
+          );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeView(),
+        ),
+        (route) => false,
+      );
+    } else {
+      showSnackbar(
+        context: context,
+        text: 'Name can\'t be Null',
+      );
+    }
   }
 
   @override
@@ -87,7 +113,7 @@ class _DetailsViewState extends State<DetailsView> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50),
                   child: RoundedButton(
-                    function: () {},
+                    function: () => saveUserData(),
                     textToUse: 'Let\'s Go',
                   ),
                 ),
