@@ -8,6 +8,14 @@ final getContactsProvider = FutureProvider((ref) {
   return contactRepository.getContacts();
 });
 
+final contactControllerProvider = Provider((ref) {
+  final contactRepository = ref.watch(contactRepositoryProvider);
+  return ContactController(
+    ref: ref,
+    contactRepository: contactRepository,
+  );
+});
+
 class ContactController {
   final ProviderRef ref;
   final ContactRepository contactRepository;
