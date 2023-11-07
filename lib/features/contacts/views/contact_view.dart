@@ -40,30 +40,33 @@ class ContactsView extends ConsumerWidget {
           data: (data) => ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: (data[index].photo == null)
-                      ? const CircleAvatar(
-                          radius: 30,
-                          child: Center(
-                            child: Icon(
-                              Icons.person,
-                              size: 30,
+                return InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: (data[index].photo == null)
+                        ? const CircleAvatar(
+                            radius: 30,
+                            child: Center(
+                              child: Icon(
+                                Icons.person,
+                                size: 30,
+                              ),
                             ),
+                          )
+                        : CircleAvatar(
+                            radius: 30,
+                            backgroundImage: MemoryImage(data[index].photo!),
                           ),
-                        )
-                      : CircleAvatar(
-                          radius: 30,
-                          backgroundImage: MemoryImage(data[index].photo!),
-                        ),
-                  title: Text(
-                    data[index].displayName,
-                    style: defaultCustomTextStyle,
-                  ),
-                  subtitle: Text(
-                    data[index].phones[0].number,
-                    style: defaultCustomTextStyle.copyWith(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
+                    title: Text(
+                      data[index].displayName,
+                      style: defaultCustomTextStyle,
+                    ),
+                    subtitle: Text(
+                      data[index].phones[0].number,
+                      style: defaultCustomTextStyle.copyWith(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 );

@@ -38,6 +38,18 @@ class ContactRepository {
       bool found = false;
       for (var document in userCollections.docs) {
         var userData = UserModel.fromMap(document.data());
+        var selectedNumber =
+            selectedContact.phones[0].number.replaceAll(' ', '');
+
+        if (selectedNumber == userData.phoneNumber) {
+          found = true;
+        }
+      }
+      if (!found) {
+        showSnackbar(
+          context: context,
+          text: 'Invite contact to ChatCrow :)',
+        );
       }
     } catch (e) {
       showSnackbar(
