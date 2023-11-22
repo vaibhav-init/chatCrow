@@ -11,3 +11,5 @@ Work on progress ....... Stay tuned :)
 
 -> show progress bar on async calls
 -> file cropping option
+
+-> global ubunu font .... (loading )

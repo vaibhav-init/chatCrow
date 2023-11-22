@@ -3,11 +3,17 @@ import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/constants/constants.dart';
 import 'package:chat_crow/features/contacts/controller/contact_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ContactsView extends ConsumerWidget {
   static const route = '/contact-view';
   const ContactsView({super.key});
+
+  void selectContact(
+      WidgetRef ref, BuildContext context, Contact selectedContact) {
+    ref.read(contactControllerProvider).selectContact(selectedContact, context);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +47,11 @@ class ContactsView extends ConsumerWidget {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () => selectContact(
+                    ref,
+                    context,
+                    data[index],
+                  ),
                   child: ListTile(
                     leading: (data[index].photo == null)
                         ? const CircleAvatar(

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:chat_crow/common/utils.dart';
+import 'package:chat_crow/features/chat/views/chat_view.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class ContactRepository {
 
         if (selectedNumber == userData.phoneNumber) {
           found = true;
+          Navigator.pushNamed(context, MobileChatScreen.route);
         }
       }
       if (!found) {

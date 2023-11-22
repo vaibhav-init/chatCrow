@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MobileChatScreen extends StatelessWidget {
+  static const String route = '/mobile-chat';
   const MobileChatScreen({Key? key}) : super(key: key);
 
   @override
