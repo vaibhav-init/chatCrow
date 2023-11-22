@@ -40,8 +40,16 @@ class _LoginViewState extends ConsumerState<LoginView> {
   }
 
   void loginWithPhone(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
     String number = "+${country.phoneCode}${numberController.text.trim()}";
     ref.read(authControllerProvider).signInWithPhoneNumber(context, number);
+    Navigator.of(context).pop();
   }
 
   @override
