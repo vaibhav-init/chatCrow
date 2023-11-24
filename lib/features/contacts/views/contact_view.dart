@@ -72,7 +72,9 @@ class ContactsView extends ConsumerWidget {
                         style: defaultCustomTextStyle,
                       ),
                       subtitle: Text(
-                        data[index].phones[0].number,
+                        (data[index].phones.isEmpty)
+                            ? 'No Phone Numner'
+                            : data[index].phones[0].number,
                         style: defaultCustomTextStyle.copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 14,
