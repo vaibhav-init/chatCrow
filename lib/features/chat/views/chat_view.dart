@@ -1,5 +1,6 @@
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
+import 'package:chat_crow/features/chat/views/widgets/bottom_chat_bar.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,74 +73,12 @@ class MobileChatScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const Expanded(
+          Expanded(
             child: Text('Icons'),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.face,
-                          size: 26,
-                        ),
-                      ),
-                      hintText: 'Message',
-                      hintStyle: const TextStyle(fontSize: 10),
-                      suffixIcon: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.attach_file_sharp,
-                              size: 20,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.photo_camera,
-                              size: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.all(9),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: CircleAvatar(
-                    radius: 22,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.mic,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+          BottomChatBar(),
         ],
       ),
     );
