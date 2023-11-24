@@ -121,7 +121,11 @@ class AuthRepository {
     return user;
   }
 
-  userData(String userId) {
-    return firestore.collection('users').doc(userId);
+  Stream<UserModel> userData(String userId) {
+    return firestore.collection('users').doc(userId).snapshots().map(
+          (event) => UserModel.fromMap(
+            event.data()!,
+          ),
+        );
   }
 }
