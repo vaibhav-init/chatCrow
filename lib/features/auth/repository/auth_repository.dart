@@ -120,4 +120,8 @@ class AuthRepository {
     }
     return user;
   }
+
+  userData(String userId) {
+    return firestore.collection('users').doc(userId);
+  }
 }

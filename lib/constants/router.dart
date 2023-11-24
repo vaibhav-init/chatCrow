@@ -27,8 +27,15 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         builder: (context) => const ContactsView(),
       );
     case MobileChatScreen.route:
+      final arguments = settings.arguments as Map<String, dynamic>;
+      final name = arguments['name'];
+      final uid = arguments['uid'];
+
       return MaterialPageRoute(
-        builder: (context) => const MobileChatScreen(),
+        builder: (context) => MobileChatScreen(
+          name: name,
+          uid: uid,
+        ),
       );
 
     default:

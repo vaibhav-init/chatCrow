@@ -2,17 +2,48 @@ import 'package:flutter/material.dart';
 
 class MobileChatScreen extends StatelessWidget {
   static const String route = '/mobile-chat';
-  const MobileChatScreen({Key? key}) : super(key: key);
+  final String name;
+  final String uid;
+
+  const MobileChatScreen({super.key, required this.name, required this.uid});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Vaibhav',
-          style: TextStyle(
-            fontSize: 18,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                CircleAvatar(
+                  radius: 19,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.person,
+                    ),
+                  ),
+                ),
+                const Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 7,
+                      backgroundColor: Colors.green,
+                    ))
+              ],
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ],
         ),
         actions: const [
           Padding(
@@ -26,13 +57,6 @@ class MobileChatScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Icon(
               Icons.call,
-              size: 27,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.more_vert,
               size: 27,
             ),
           ),
@@ -54,8 +78,7 @@ class MobileChatScreen extends StatelessWidget {
                       ),
                     ),
                     hintText: 'Message',
-                    hintStyle:
-                        const TextStyle(fontSize: 10, color: Colors.white),
+                    hintStyle: const TextStyle(fontSize: 10),
                     suffixIcon: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

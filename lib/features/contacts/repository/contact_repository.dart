@@ -44,7 +44,10 @@ class ContactRepository {
 
         if (selectedNumber == userData.phoneNumber) {
           found = true;
-          Navigator.pushNamed(context, MobileChatScreen.route);
+          Navigator.pushNamed(context, MobileChatScreen.route, arguments: {
+            'name': userData.name,
+            'uid': userData.uid,
+          });
         }
       }
       if (!found) {
