@@ -18,14 +18,12 @@ class CustomPhoneTextField extends StatelessWidget {
     return TextField(
       style: const TextStyle(
         fontSize: 20,
-        fontFamily: 'Ubuntu',
       ),
       controller: controller,
       decoration: InputDecoration(
         hintText: '986**********',
         hintStyle: const TextStyle(
           fontSize: 20,
-          fontFamily: 'Ubuntu',
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(

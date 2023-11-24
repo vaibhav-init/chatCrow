@@ -42,7 +42,6 @@ class _WelcomeViewState extends State<WelcomeView>
                         textStyle: const TextStyle(
                           fontSize: 50.0,
                           fontWeight: FontWeight.w900,
-                          fontFamily: 'Ubuntu',
                         ),
                         speed: const Duration(milliseconds: 200),
                       ),

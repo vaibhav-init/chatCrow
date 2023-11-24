@@ -31,6 +31,7 @@ class ChatCrow extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: "ChatCrow",
       theme: ThemeData(
+        fontFamily: 'Ubuntu',
         useMaterial3: true,
       ),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
