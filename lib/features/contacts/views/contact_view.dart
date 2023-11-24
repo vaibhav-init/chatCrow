@@ -43,48 +43,49 @@ class ContactsView extends ConsumerWidget {
         ],
       ),
       body: ref.watch(getContactsProvider).when(
-          data: (data) => ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () => selectContact(
-                    ref,
-                    context,
-                    data[index],
-                  ),
-                  child: ListTile(
-                    leading: (data[index].photo == null)
-                        ? const CircleAvatar(
-                            radius: 30,
-                            child: Center(
-                              child: Icon(
-                                Icons.person,
-                                size: 30,
-                              ),
-                            ),
-                          )
-                        : CircleAvatar(
-                            radius: 30,
-                            backgroundImage: MemoryImage(data[index].photo!),
-                          ),
-                    title: Text(
-                      data[index].displayName,
-                      style: defaultCustomTextStyle,
+            data: (data) => ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () => selectContact(
+                      ref,
+                      context,
+                      data[index],
                     ),
-                    subtitle: Text(
-                      data[index].phones[0].number,
-                      style: defaultCustomTextStyle.copyWith(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
+                    child: ListTile(
+                      leading: (data[index].photo == null)
+                          ? const CircleAvatar(
+                              radius: 30,
+                              child: Center(
+                                child: Icon(
+                                  Icons.person,
+                                  size: 30,
+                                ),
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 30,
+                              backgroundImage: MemoryImage(data[index].photo!),
+                            ),
+                      title: Text(
+                        data[index].displayName,
+                        style: defaultCustomTextStyle,
+                      ),
+                      subtitle: Text(
+                        data[index].phones[0].number,
+                        style: defaultCustomTextStyle.copyWith(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
-          error: (error, stackTrace) => ErrorScreen(
-                error: error.toString(),
-              ),
-          loading: () => const Loader()),
+                  );
+                }),
+            error: (error, stackTrace) => ErrorScreen(
+              error: error.toString(),
+            ),
+            loading: () => const Loader(),
+          ),
     );
   }
 }

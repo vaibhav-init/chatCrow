@@ -64,7 +64,7 @@ class _BottomChatBarState extends State<BottomChatBar> {
                 onPressed: () {},
                 icon: Icon(
                   showSend ? Icons.send : Icons.mic,
-                  size: 20,
+                  size: 25,
                 ),
               ),
             ),
