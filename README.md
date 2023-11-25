@@ -8,3 +8,7 @@ Work on progress ....... Stay tuned :)
 ->resend otp feature
 -> show progress bar on async calls
 -> file cropping option
+-> hero animation in home -> chat view
+-> shimmer effect
+-> icon update
+-> sound on message
