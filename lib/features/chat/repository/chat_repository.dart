@@ -1,9 +1,12 @@
+import 'package:chat_crow/common/enums/message_enum.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/models/chat_contact_model.dart';
+import 'package:chat_crow/models/message_model.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatRepository {
   final FirebaseFirestore firestore;
@@ -61,6 +64,7 @@ class ChatRepository {
     required String messageId,
     required String username,
     required String recieverUsername,
+    required MessageEnum type,
   }) async {}
 
   void sendTextMessage({
@@ -71,6 +75,7 @@ class ChatRepository {
   }) async {
     try {
       var timeSent = DateTime.now();
+      var messageId = const Uuid();
 
       var userDataMap =
           await firestore.collection('users').doc(receiverId).get();
@@ -82,6 +87,8 @@ class ChatRepository {
         timeSent,
         receiverId,
       );
+
+      _saveMessagesToMessageSubcollection(message: message, receiverId: receiverId, timeSent: timeSent, messageId: messageId, username: , recieverUsername: recieverUsername, type: MessageEnum.text,);
     } catch (e) {
       // ignore: use_build_context_synchronously
       showSnackbar(context: context, text: e.toString());
