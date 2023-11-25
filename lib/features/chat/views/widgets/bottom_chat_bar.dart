@@ -1,14 +1,41 @@
+import 'package:chat_crow/features/chat/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BottomChatBar extends StatefulWidget {
-  const BottomChatBar({super.key});
+class BottomChatBar extends ConsumerStatefulWidget {
+  final String receiverUserId;
+
+  const BottomChatBar({
+    super.key,
+    required this.receiverUserId,
+  });
 
   @override
-  State<BottomChatBar> createState() => _BottomChatBarState();
+  ConsumerState<BottomChatBar> createState() => _BottomChatBarState();
 }
 
-class _BottomChatBarState extends State<BottomChatBar> {
+class _BottomChatBarState extends ConsumerState<BottomChatBar> {
   bool showSend = false;
+  final TextEditingController messageController = TextEditingController();
+
+  void sendTextMessage() async {
+    if (showSend) {
+      ref.read(chatControllerProvider).sendTextMessage(
+            context,
+            messageController.text.trim(),
+            widget.receiverUserId,
+          );
+
+      messageController.clear();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    messageController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,6 +44,7 @@ class _BottomChatBarState extends State<BottomChatBar> {
         children: [
           Expanded(
             child: TextFormField(
+              controller: messageController,
               onChanged: (value) {
                 if (value.isEmpty) {
                   setState(() {
@@ -61,7 +89,7 @@ class _BottomChatBarState extends State<BottomChatBar> {
             child: CircleAvatar(
               radius: 22,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () => sendTextMessage(),
                 icon: Icon(
                   showSend ? Icons.send : Icons.mic,
                   size: 25,

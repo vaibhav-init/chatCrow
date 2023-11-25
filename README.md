@@ -2,7 +2,7 @@
 
 Work on progress ....... Stay tuned :)
 
-->Theming
+->Theming custom themes !!!!!! (on demand feature )
 -> verifyOTP part stuck !!!
 -> otp autofill feature (TODO)
 ->resend otp feature

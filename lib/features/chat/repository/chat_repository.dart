@@ -6,7 +6,13 @@ import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
+
+final chatRepositoryProvider = Provider((ref) => ChatRepository(
+      firestore: FirebaseFirestore.instance,
+      auth: FirebaseAuth.instance,
+    ));
 
 class ChatRepository {
   final FirebaseFirestore firestore;
@@ -58,14 +64,46 @@ class ChatRepository {
   }
 
   void _saveMessagesToMessageSubcollection({
-    required String message,
+    required String text,
     required String receiverId,
     required DateTime timeSent,
     required String messageId,
     required String username,
     required String recieverUsername,
     required MessageEnum type,
-  }) async {}
+  }) async {
+    final message = Message(
+      senderId: auth.currentUser!.uid,
+      recieverId: receiverId,
+      message: text,
+      type: type,
+      timeSent: timeSent,
+      messageId: messageId,
+      isSeen: false,
+    );
+    //for sender
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .doc(messageId)
+        .set(
+          message.toMap(),
+        );
+    //for reciever
+    await firestore
+        .collection('users')
+        .doc(receiverId)
+        .collection('chats')
+        .doc(auth.currentUser!.uid)
+        .collection('messages')
+        .doc(messageId)
+        .set(
+          message.toMap(),
+        );
+  }
 
   void sendTextMessage({
     required BuildContext context,
@@ -75,7 +113,7 @@ class ChatRepository {
   }) async {
     try {
       var timeSent = DateTime.now();
-      var messageId = const Uuid();
+      var messageId = const Uuid().v1();
 
       var userDataMap =
           await firestore.collection('users').doc(receiverId).get();
@@ -88,7 +126,15 @@ class ChatRepository {
         receiverId,
       );
 
-      _saveMessagesToMessageSubcollection(message: message, receiverId: receiverId, timeSent: timeSent, messageId: messageId, username: , recieverUsername: recieverUsername, type: MessageEnum.text,);
+      _saveMessagesToMessageSubcollection(
+        text: message,
+        receiverId: receiverId,
+        timeSent: timeSent,
+        messageId: messageId,
+        username: sender.name,
+        recieverUsername: recieverUserData.name,
+        type: MessageEnum.text,
+      );
     } catch (e) {
       // ignore: use_build_context_synchronously
       showSnackbar(context: context, text: e.toString());
