@@ -35,6 +35,7 @@ class ChatRepository {
         var message = Message.fromMap(document.data());
         messages.add(message);
       }
+
       return messages;
     });
   }

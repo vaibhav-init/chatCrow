@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +28,10 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
           );
 
       messageController.clear();
+      final player = AudioPlayer();
+      player.play(
+        AssetSource('audios/message.mp3'),
+      );
     }
   }
 

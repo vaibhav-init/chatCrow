@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/bottom_chat_bar.dart';
@@ -57,19 +58,25 @@ class MobileChatScreen extends ConsumerWidget {
             ),
           ],
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.videocam,
-              size: 27,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.videocam,
+                size: 27,
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.call,
-              size: 27,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.call,
+                size: 27,
+              ),
             ),
           ),
         ],
