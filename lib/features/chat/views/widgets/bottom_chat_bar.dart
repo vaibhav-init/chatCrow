@@ -27,7 +27,10 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
             widget.receiverUserId,
           );
 
-      messageController.clear();
+      setState(() {
+        messageController.text = '';
+        showSend = false;
+      });
       final player = AudioPlayer();
       player.play(
         AssetSource('audios/message.mp3'),
