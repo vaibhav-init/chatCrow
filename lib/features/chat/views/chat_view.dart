@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/bottom_chat_bar.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const String route = '/mobile-chat';
+
   final String name;
   final String uid;
 
