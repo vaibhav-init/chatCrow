@@ -12,3 +12,6 @@ Work on progress ....... Stay tuned :)
 -> shimmer effect
 -> icon update
 -> sound on message
+
+
+-> explore rive animations... 
