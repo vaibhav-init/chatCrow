@@ -15,3 +15,11 @@ Work on progress ....... Stay tuned :)
 
 
 -> explore rive animations... 
+
+-> change background colour ... 
+
+
+left on pick videos from gallery ... 
+okay .. 
+
+seprate list for the available contact and all normal contact ... (must !!!!).

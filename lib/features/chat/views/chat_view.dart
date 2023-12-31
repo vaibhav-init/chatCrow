@@ -6,7 +6,6 @@ import 'package:chat_crow/features/chat/views/widgets/chat_list.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const String route = '/mobile-chat';

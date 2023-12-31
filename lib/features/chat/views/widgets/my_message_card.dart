@@ -1,4 +1,5 @@
 import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/features/chat/views/widgets/message_content.dart';
 import 'package:flutter/material.dart';
 
 class MyMessageCard extends StatelessWidget {
@@ -31,18 +32,20 @@ class MyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 30,
-                  top: 5,
-                  bottom: 20,
-                ),
-                child: Text(
-                  message,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+                padding: type == MessageEnum.text
+                    ? const EdgeInsets.only(
+                        left: 10,
+                        right: 30,
+                        top: 5,
+                        bottom: 20,
+                      )
+                    : const EdgeInsets.only(
+                        left: 7,
+                        right: 7,
+                        top: 7,
+                        bottom: 25,
+                      ),
+                child: MessageContent(message: message, type: type),
               ),
               Positioned(
                 bottom: 4,
@@ -53,7 +56,7 @@ class MyMessageCard extends StatelessWidget {
                       date,
                       style: const TextStyle(
                         fontSize: 13,
-                        color: Colors.white60,
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(
@@ -62,7 +65,7 @@ class MyMessageCard extends StatelessWidget {
                     const Icon(
                       Icons.done_all,
                       size: 20,
-                      color: Colors.white60,
+                      color: Colors.blue,
                     ),
                   ],
                 ),
