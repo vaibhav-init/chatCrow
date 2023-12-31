@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
+import 'package:chat_crow/features/chat/views/widgets/menu_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:popover/popover.dart';
 
 class BottomChatBar extends ConsumerStatefulWidget {
   final String receiverUserId;
@@ -35,6 +41,19 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
       player.play(
         AssetSource('audios/message.mp3'),
       );
+    }
+  }
+
+  void selectImage() async {
+    File? image = await pickImageFromGallery(context);
+    if (image != null) {
+      // ignore: use_build_context_synchronously
+      ref.read(chatControllerProvider).sendFileMessage(
+            context,
+            image,
+            widget.receiverUserId,
+            MessageEnum.image,
+          );
     }
   }
 
@@ -75,7 +94,16 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                 ),
                 hintText: 'Onee Chan Message..',
                 suffixIcon: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showPopover(
+                      context: context,
+                      bodyBuilder: (context) => const MenuItems(),
+                      direction: PopoverDirection.top,
+                      height: 200,
+                      width: 200,
+                      arrowHeight: 0,
+                    );
+                  },
                   icon: const Icon(
                     Icons.attach_file_sharp,
                     size: 20,

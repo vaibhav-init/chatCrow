@@ -25,6 +25,7 @@ dependencies:
   uuid: ^4.2.1
   intl: ^0.18.1
   audioplayers: ^5.2.1
+  popover: ^0.2.9
 
 dev_dependencies:
   flutter_test:

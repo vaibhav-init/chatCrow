@@ -209,7 +209,9 @@ class ChatRepository {
 
       UserModel receiverUserData =
           await firestore.collection('users').doc(recieverUserId).get().then(
-                (value) => UserModel.fromMap(value.data()!),
+                (value) => UserModel.fromMap(
+                  value.data()!,
+                ),
               );
       String message;
       switch (messageEnum) {
@@ -231,7 +233,22 @@ class ChatRepository {
       }
 
       _saveDataToContactSubCollection(
-          userModel, receiverUserData, message, timeSent, recieverUserId);
+        userModel,
+        receiverUserData,
+        message,
+        timeSent,
+        recieverUserId,
+      );
+
+      _saveMessagesToMessageSubcollection(
+        text: imageUrl,
+        receiverId: recieverUserId,
+        timeSent: timeSent,
+        messageId: messageId,
+        username: userModel.name,
+        recieverUsername: receiverUserData.name,
+        type: messageEnum,
+      );
     } catch (e) {
       // ignore: use_build_context_synchronously
       showSnackbar(context: context, text: e.toString());
