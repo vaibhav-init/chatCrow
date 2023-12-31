@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
 import 'package:chat_crow/features/chat/views/chat_view.dart';
@@ -50,8 +51,9 @@ class ContactsList extends ConsumerWidget {
                             ),
                           ),
                           leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(chatContactData.profilePic),
+                            backgroundImage: CachedNetworkImageProvider(
+                              chatContactData.profilePic,
+                            ),
                             radius: 30,
                           ),
                           trailing: Text(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/bottom_chat_bar.dart';
@@ -5,6 +6,7 @@ import 'package:chat_crow/features/chat/views/widgets/chat_list.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const String route = '/mobile-chat';
@@ -32,7 +34,9 @@ class MobileChatScreen extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       radius: 21,
-                      backgroundImage: NetworkImage(snapshot.data!.profilePic),
+                      backgroundImage: CachedNetworkImageProvider(
+                        snapshot.data!.profilePic,
+                      ),
                     ),
                     Positioned(
                       bottom: 0,

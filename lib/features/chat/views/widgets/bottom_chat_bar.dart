@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_crow/common/enums/message_enum.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
@@ -34,10 +33,6 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
         messageController.text = '';
         showSend = false;
       });
-      final player = AudioPlayer();
-      player.play(
-        AssetSource('audios/message.mp3'),
-      );
     }
   }
 

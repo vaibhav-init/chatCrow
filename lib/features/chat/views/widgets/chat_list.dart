@@ -56,6 +56,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                 return MyMessageCard(
                   message: messageData.message,
                   date: timeSent,
+                  type: messageData.type,
                 );
               }
               return SenderMessageCard(
