@@ -101,7 +101,10 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                     ),
                     PopupMenuItem(
                       child: ElevatedButton.icon(
-                        onPressed: () => selectImage(),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          selectImage();
+                        },
                         icon: const Icon(Icons.photo),
                         label: const Text('Gallery'),
                       ),
