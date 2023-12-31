@@ -216,16 +216,16 @@ class ChatRepository {
       String message;
       switch (messageEnum) {
         case MessageEnum.image:
-          message = 'Image';
+          message = '📷 Image';
           break;
         case MessageEnum.audio:
-          message = 'Audio';
+          message = '🔊 Audio';
           break;
         case MessageEnum.video:
-          message = 'Video';
+          message = '🎥 Video';
           break;
         case MessageEnum.gif:
-          message = 'Gif';
+          message = '🖼️ Gif';
           break;
         default:
           message = 'File';
