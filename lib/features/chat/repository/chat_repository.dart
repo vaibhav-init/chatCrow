@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/models/chat_contact_model.dart';
 import 'package:chat_crow/models/message_model.dart';
@@ -181,6 +184,54 @@ class ChatRepository {
         recieverUsername: recieverUserData.name,
         type: MessageEnum.text,
       );
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      showSnackbar(context: context, text: e.toString());
+    }
+  }
+
+  void sendFileMessage({
+    required BuildContext context,
+    required File file,
+    required String recieverUserId,
+    required UserModel userModel,
+    required ProviderRef ref,
+    required MessageEnum messageEnum,
+  }) async {
+    try {
+      var timeSent = DateTime.now();
+      var messageId = const Uuid().v1();
+      String imageUrl = await ref
+          .read(firebaseStoreageRepositoryProvider)
+          .uploadFile(
+              'chat/${messageEnum.type}/${userModel.uid}/$recieverUserId/$messageId',
+              file);
+
+      UserModel receiverUserData =
+          await firestore.collection('users').doc(recieverUserId).get().then(
+                (value) => UserModel.fromMap(value.data()!),
+              );
+      String message;
+      switch (messageEnum) {
+        case MessageEnum.image:
+          message = 'Image';
+          break;
+        case MessageEnum.audio:
+          message = 'Audio';
+          break;
+        case MessageEnum.video:
+          message = 'Video';
+          break;
+        case MessageEnum.gif:
+          message = 'Gif';
+          break;
+        default:
+          message = 'File';
+          break;
+      }
+
+      _saveDataToContactSubCollection(
+          userModel, receiverUserData, message, timeSent, recieverUserId);
     } catch (e) {
       // ignore: use_build_context_synchronously
       showSnackbar(context: context, text: e.toString());
