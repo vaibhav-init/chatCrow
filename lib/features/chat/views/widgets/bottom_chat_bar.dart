@@ -49,6 +49,19 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
     }
   }
 
+  void selectVideo() async {
+    File? video = await pickVideoFromGallery(context);
+    if (video != null) {
+      // ignore: use_build_context_synchronously
+      ref.read(chatControllerProvider).sendFileMessage(
+            context,
+            video,
+            widget.receiverUserId,
+            MessageEnum.video,
+          );
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
