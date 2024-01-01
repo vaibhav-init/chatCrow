@@ -120,9 +120,10 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                     filled: true,
                     prefixIcon: IconButton(
                       onPressed: toggleEmojiContainer,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.face,
                         size: 26,
+                        color: showEmojiKeyboard ? Colors.blue : null,
                       ),
                     ),
                     hintText: 'Onee Chan Message..',
@@ -201,14 +202,22 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
               ),
             ],
           ),
-          SizedBox(
-            height: 310,
-            child: EmojiPicker(
-              onEmojiSelected: (category, emoji) {
-                messageController.text += emoji.emoji;
-              },
-            ),
-          )
+          showEmojiKeyboard
+              ? SizedBox(
+                  height: 310,
+                  child: EmojiPicker(
+                    onEmojiSelected: (category, emoji) {
+                      messageController.text += emoji.emoji;
+
+                      if (!showSend) {
+                        setState(() {
+                          showSend = !showSend;
+                        });
+                      }
+                    },
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
