@@ -11,6 +11,7 @@ class VideoPlayerUI extends StatefulWidget {
 
 class _VideoPlayerUIState extends State<VideoPlayerUI> {
   late CachedVideoPlayerController controller;
+  bool isPlaying = false;
   @override
   void initState() {
     controller = CachedVideoPlayerController.network(
@@ -37,8 +38,19 @@ class _VideoPlayerUIState extends State<VideoPlayerUI> {
           Align(
             alignment: Alignment.center,
             child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.play_circle),
+              onPressed: () {
+                if (isPlaying) {
+                  controller.pause();
+                } else {
+                  controller.play();
+                }
+                setState(() {
+                  isPlaying = !isPlaying;
+                });
+              },
+              icon: Icon(
+                isPlaying ? Icons.pause_circle : Icons.play_circle,
+              ),
             ),
           ),
         ],

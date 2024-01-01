@@ -131,6 +131,16 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                         label: const Text('Audio'),
                       ),
                     ),
+                    PopupMenuItem(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          selectVideo();
+                        },
+                        icon: const Icon(Icons.video_camera_back),
+                        label: const Text('Video'),
+                      ),
+                    ),
                   ],
                   icon: const Icon(
                     Icons.attach_file,
