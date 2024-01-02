@@ -66,6 +66,7 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
       }
       if (isRecording) {
         await recorder!.stopRecorder();
+        sendFileMessage(File(path), MessageEnum.audio);
       } else {
         await recorder!.startRecorder(
           toFile: path,
@@ -76,6 +77,18 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
         isRecording = !isRecording;
       });
     }
+  }
+
+  void sendFileMessage(
+    File file,
+    MessageEnum messageEnum,
+  ) {
+    ref.read(chatControllerProvider).sendFileMessage(
+          context,
+          file,
+          widget.receiverUserId,
+          messageEnum,
+        );
   }
 
   void selectImage() async {
