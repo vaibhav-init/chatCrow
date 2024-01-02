@@ -5,6 +5,9 @@ import 'package:chat_crow/features/chat/controller/chat_controller.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class BottomChatBar extends ConsumerStatefulWidget {
   final String receiverUserId;
@@ -23,6 +26,24 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
   final TextEditingController messageController = TextEditingController();
   bool showEmojiKeyboard = false;
   FocusNode focusNode = FocusNode();
+  bool isRecording = false;
+  bool isRecorderInit = false;
+  FlutterSoundRecorder? recorder;
+
+  @override
+  void initState() {
+    super.initState();
+    recorder = FlutterSoundRecorder();
+    openAudio();
+  }
+
+  void openAudio() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw RecordingPermissionException('Microphone permission not granted');
+    }
+    await recorder!.openRecorder();
+  }
 
   void sendTextMessage() async {
     if (showSend) {
@@ -35,6 +56,20 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
       setState(() {
         messageController.text = '';
         showSend = false;
+      });
+    } else {
+      var tempDirectory = await getTemporaryDirectory();
+      var path = '${tempDirectory.path}/temp_sound.aac';
+      if (isRecording) {
+        await recorder!.stopRecorder();
+      } else {
+        await recorder!.startRecorder(
+          toFile: path,
+        );
+      }
+
+      setState(() {
+        isRecording = !isRecording;
       });
     }
   }
@@ -91,6 +126,8 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
   void dispose() {
     super.dispose();
     messageController.dispose();
+    recorder!.closeRecorder();
+    isRecorderInit = false;
   }
 
   @override
