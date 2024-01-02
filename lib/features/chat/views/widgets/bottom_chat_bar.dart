@@ -43,6 +43,7 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
       throw RecordingPermissionException('Microphone permission not granted');
     }
     await recorder!.openRecorder();
+    isRecorderInit = true;
   }
 
   void sendTextMessage() async {
@@ -60,6 +61,9 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
     } else {
       var tempDirectory = await getTemporaryDirectory();
       var path = '${tempDirectory.path}/temp_sound.aac';
+      if (!isRecorderInit) {
+        return;
+      }
       if (isRecording) {
         await recorder!.stopRecorder();
       } else {
@@ -231,7 +235,11 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                   child: IconButton(
                     onPressed: () => sendTextMessage(),
                     icon: Icon(
-                      showSend ? Icons.send : Icons.mic,
+                      showSend
+                          ? Icons.send
+                          : isRecording
+                              ? Icons.cancel
+                              : Icons.mic,
                       size: 25,
                     ),
                   ),
