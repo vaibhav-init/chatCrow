@@ -26,6 +26,7 @@ class MyMessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isReplying = repliedText.isNotEmpty;
     return SwipeTo(
       onRightSwipe: (DragUpdateDetails details) {
         onLeftSwipe();
@@ -62,7 +63,29 @@ class MyMessageCard extends StatelessWidget {
                           top: 7,
                           bottom: 25,
                         ),
-                  child: MessageContent(message: message, type: type),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isReplying) ...[
+                        Text(
+                          username,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          color: Colors.purple.withOpacity(0.1),
+                          child: MessageContent(
+                            message: repliedText,
+                            type: repliedType,
+                          ),
+                        ),
+                      ],
+                      MessageContent(
+                        message: message,
+                        type: type,
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
                   bottom: 4,

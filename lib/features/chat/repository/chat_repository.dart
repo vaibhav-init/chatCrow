@@ -122,7 +122,7 @@ class ChatRepository {
     required String messageId,
     required String username,
     required String recieverUsername,
-
+    required MessageEnum messageType,
     //for replied part
     required MessageReply? messageReply,
     required String senderUsername,
@@ -132,7 +132,7 @@ class ChatRepository {
       senderId: auth.currentUser!.uid,
       recieverId: receiverId,
       message: text,
-      type: messageReply == null ? MessageEnum.text : messageReply.messageEnum,
+      type: messageType,
       timeSent: timeSent,
       messageId: messageId,
       isSeen: false,
@@ -198,6 +198,7 @@ class ChatRepository {
         receiverId: receiverId,
         timeSent: timeSent,
         messageId: messageId,
+        messageType: MessageEnum.text,
         username: sender.name,
         recieverUsername: recieverUserData.name,
         messageReply: messageReply,
@@ -266,6 +267,7 @@ class ChatRepository {
         receiverId: recieverUserId,
         timeSent: timeSent,
         messageId: messageId,
+        messageType: messageEnum,
         username: userModel.name,
         recieverUsername: receiverUserData.name,
         messageReply: messageReply,
