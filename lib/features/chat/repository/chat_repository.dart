@@ -21,7 +21,10 @@ class ChatRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
 
-  ChatRepository({required this.firestore, required this.auth});
+  ChatRepository({
+    required this.firestore,
+    required this.auth,
+  });
 
   Stream<List<Message>> getMessages(String receiverId) {
     return firestore
@@ -123,7 +126,7 @@ class ChatRepository {
     //for replied part
     required MessageReply? messageReply,
     required String senderUsername,
-    required String receiverUsername,
+    required String? receiverUsername,
   }) async {
     final message = Message(
       senderId: auth.currentUser!.uid,
@@ -139,7 +142,7 @@ class ChatRepository {
           ? ''
           : messageReply.isMe
               ? senderUsername
-              : receiverUsername,
+              : receiverUsername ?? '',
       repliedType:
           messageReply == null ? MessageEnum.text : messageReply.messageEnum,
     );
@@ -214,6 +217,7 @@ class ChatRepository {
     required UserModel userModel,
     required ProviderRef ref,
     required MessageEnum messageEnum,
+    required MessageReply? messageReply,
   }) async {
     try {
       var timeSent = DateTime.now();
@@ -264,6 +268,9 @@ class ChatRepository {
         messageId: messageId,
         username: userModel.name,
         recieverUsername: receiverUserData.name,
+        messageReply: messageReply,
+        receiverUsername: receiverUserData.name,
+        senderUsername: userModel.name,
       );
     } catch (e) {
       // ignore: use_build_context_synchronously
