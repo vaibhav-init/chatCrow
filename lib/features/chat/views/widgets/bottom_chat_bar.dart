@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/common/providers/message_reply_provider.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
+import 'package:chat_crow/features/chat/views/widgets/reply_preview.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -149,10 +151,13 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
 
   @override
   Widget build(BuildContext context) {
+    final messageReply = ref.watch(messageReplyProvider);
+    final isShowReply = messageReply != null;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
+          isShowReply ? const MessageReplyPreview() : const SizedBox(),
           Row(
             children: [
               Expanded(

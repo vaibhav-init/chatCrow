@@ -57,6 +57,10 @@ class _ChatListState extends ConsumerState<ChatList> {
                   message: messageData.message,
                   date: timeSent,
                   type: messageData.type,
+                  repliedText: messageData.repliedMessage,
+                  repliedType: messageData.repliedType,
+                  username: messageData.repliedTo,
+                  onLeftSwipe: () {},
                 );
               }
               return SenderMessageCard(

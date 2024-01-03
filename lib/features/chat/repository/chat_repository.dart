@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/common/providers/message_reply_provider.dart';
 import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/models/chat_contact_model.dart';
@@ -118,16 +119,29 @@ class ChatRepository {
     required String messageId,
     required String username,
     required String recieverUsername,
-    required MessageEnum type,
+
+    //for replied part
+    required MessageReply? messageReply,
+    required String senderUsername,
+    required String receiverUsername,
   }) async {
     final message = Message(
       senderId: auth.currentUser!.uid,
       recieverId: receiverId,
       message: text,
-      type: type,
+      type: messageReply == null ? MessageEnum.text : messageReply.messageEnum,
       timeSent: timeSent,
       messageId: messageId,
       isSeen: false,
+      // for replied part
+      repliedMessage: messageReply == null ? '' : messageReply.message,
+      repliedTo: messageReply == null
+          ? ''
+          : messageReply.isMe
+              ? senderUsername
+              : receiverUsername,
+      repliedType:
+          messageReply == null ? MessageEnum.text : messageReply.messageEnum,
     );
     //for sender
     await firestore
@@ -158,6 +172,8 @@ class ChatRepository {
     required String message,
     required String receiverId,
     required UserModel sender,
+    //reply feature
+    required MessageReply? messageReply,
   }) async {
     try {
       var timeSent = DateTime.now();
@@ -181,7 +197,9 @@ class ChatRepository {
         messageId: messageId,
         username: sender.name,
         recieverUsername: recieverUserData.name,
-        type: MessageEnum.text,
+        messageReply: messageReply,
+        receiverUsername: recieverUserData.name,
+        senderUsername: sender.name,
       );
     } catch (e) {
       // ignore: use_build_context_synchronously
@@ -246,7 +264,6 @@ class ChatRepository {
         messageId: messageId,
         username: userModel.name,
         recieverUsername: receiverUserData.name,
-        type: messageEnum,
       );
     } catch (e) {
       // ignore: use_build_context_synchronously
