@@ -1,6 +1,7 @@
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/contacts_list.dart';
 import 'package:chat_crow/features/contacts/views/contact_view.dart';
+import 'package:chat_crow/features/group/views/create_group_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,19 +72,27 @@ class _HomeViewState extends ConsumerState<HomeView>
             ),
           ],
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.search,
-              size: 27,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  CreateGroupScreen.route,
+                );
+              },
+              icon: const Icon(
+                Icons.group_add,
+                size: 27,
+              ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Icon(
-              Icons.more_vert,
-              size: 27,
+              Icons.logout,
+              size: 24,
             ),
           ),
         ],

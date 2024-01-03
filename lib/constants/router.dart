@@ -4,6 +4,7 @@ import 'package:chat_crow/features/auth/views/login_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:chat_crow/features/chat/views/chat_view.dart';
 import 'package:chat_crow/features/contacts/views/contact_view.dart';
+import 'package:chat_crow/features/group/views/create_group_view.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -36,6 +37,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           name: name,
           uid: uid,
         ),
+      );
+    case CreateGroupScreen.route:
+      return MaterialPageRoute(
+        builder: (context) => const CreateGroupScreen(),
       );
 
     default:
