@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/common/widgets/custom_textfield.dart';
+import 'package:chat_crow/features/group/controller/group_controller.dart';
 import 'package:chat_crow/features/group/views/widgets/group_contact_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,7 +104,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: createGroup,
         child: const Icon(
           Icons.done,
           weight: 2,
