@@ -12,6 +12,7 @@ class MyMessageCard extends StatelessWidget {
   final String repliedText;
   final String username;
   final MessageEnum repliedType;
+  final bool isSeen;
 
   const MyMessageCard({
     Key? key,
@@ -22,6 +23,7 @@ class MyMessageCard extends StatelessWidget {
     required this.repliedText,
     required this.username,
     required this.repliedType,
+    required this.isSeen,
   }) : super(key: key);
 
   @override
@@ -102,10 +104,10 @@ class MyMessageCard extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.done_all,
                         size: 20,
-                        color: Colors.blue,
+                        color: isSeen ? Colors.blue : null,
                       ),
                     ],
                   ),

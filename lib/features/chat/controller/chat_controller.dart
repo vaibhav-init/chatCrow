@@ -43,6 +43,7 @@ class ChatController {
               sender: value!,
               messageReply: messageReply),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendFileMessage(BuildContext context, File file, String receiverId,
@@ -58,5 +59,14 @@ class ChatController {
               messageEnum: messageEnum,
               messageReply: messageReply),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
+  }
+
+  void setChatMessageSeen(
+    BuildContext context,
+    String recieverUserId,
+    String messageId,
+  ) {
+    chatRepository.setChatMessageSeen(context, recieverUserId, messageId);
   }
 }
