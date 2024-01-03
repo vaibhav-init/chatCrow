@@ -1,3 +1,5 @@
+import 'package:chat_crow/common/enums/message_enum.dart';
+import 'package:chat_crow/common/providers/message_reply_provider.dart';
 import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/features/chat/controller/chat_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/my_message_card.dart';
@@ -30,6 +32,16 @@ class _ChatListState extends ConsumerState<ChatList> {
     scrollController.dispose();
   }
 
+  void onMessageSwipe(
+    String message,
+    bool isMe,
+    MessageEnum messageEnum,
+  ) {
+    ref.read(messageReplyProvider.notifier).update(
+          (state) => MessageReply(message, isMe, messageEnum),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
@@ -60,7 +72,11 @@ class _ChatListState extends ConsumerState<ChatList> {
                   repliedText: messageData.repliedMessage,
                   repliedType: messageData.repliedType,
                   username: messageData.repliedTo,
-                  onLeftSwipe: () {},
+                  onLeftSwipe: () => onMessageSwipe(
+                    messageData.message,
+                    true,
+                    messageData.type,
+                  ),
                 );
               }
               return SenderMessageCard(
