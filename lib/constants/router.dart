@@ -31,11 +31,13 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       final arguments = settings.arguments as Map<String, dynamic>;
       final name = arguments['name'];
       final uid = arguments['uid'];
+      final isGroup = arguments['isGroup'];
 
       return MaterialPageRoute(
         builder: (context) => MobileChatScreen(
           name: name,
           uid: uid,
+          isGroup: isGroup,
         ),
       );
     case CreateGroupScreen.route:

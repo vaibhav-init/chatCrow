@@ -47,6 +47,24 @@ class ChatRepository {
     });
   }
 
+  Stream<List<Message>> getGroupMessages(String groupId) {
+    return firestore
+        .collection('groups')
+        .doc(groupId)
+        .collection('chats')
+        .orderBy('timeSent')
+        .snapshots()
+        .map((event) {
+      List<Message> messages = [];
+      for (var document in event.docs) {
+        var message = Message.fromMap(document.data());
+        messages.add(message);
+      }
+
+      return messages;
+    });
+  }
+
   Stream<List<ChatContact>> getChatContacts() {
     return firestore
         .collection('users')
@@ -88,45 +106,55 @@ class ChatRepository {
 
   void _saveDataToContactSubCollection(
     UserModel senderUserData,
-    UserModel recieverUserData,
+    UserModel? recieverUserData,
     String text,
     DateTime timeSent,
     String recieverUserId,
+    bool isGroup,
   ) async {
+    //for group
+    if (isGroup) {
+      await firestore.collection('groups').doc(recieverUserId).update({
+        'lastMessage': text,
+        'timeSent': DateTime.now().millisecondsSinceEpoch,
+      });
+    } else {
+      //for reciever
+      var recieverChatContact = ChatContact(
+        name: senderUserData.name,
+        profilePic: senderUserData.profilePic,
+        contactId: senderUserData.uid,
+        lastMessage: text,
+        timeSent: timeSent,
+      );
+      await firestore
+          .collection('users')
+          .doc(recieverUserId)
+          .collection('chats')
+          .doc(auth.currentUser!.uid)
+          .set(
+            recieverChatContact.toMap(),
+          );
+
+      //now for sender
+
+      var senderChatContact = ChatContact(
+        name: recieverUserData!.name,
+        profilePic: recieverUserData.profilePic,
+        contactId: recieverUserData.uid,
+        lastMessage: text,
+        timeSent: timeSent,
+      );
+      await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('chats')
+          .doc(recieverUserId)
+          .set(
+            senderChatContact.toMap(),
+          );
+    }
     //this if for reciever
-    var recieverChatContact = ChatContact(
-      name: senderUserData.name,
-      profilePic: senderUserData.profilePic,
-      contactId: senderUserData.uid,
-      lastMessage: text,
-      timeSent: timeSent,
-    );
-    await firestore
-        .collection('users')
-        .doc(recieverUserId)
-        .collection('chats')
-        .doc(auth.currentUser!.uid)
-        .set(
-          recieverChatContact.toMap(),
-        );
-
-    //now for sender
-
-    var senderChatContact = ChatContact(
-      name: recieverUserData.name,
-      profilePic: recieverUserData.profilePic,
-      contactId: recieverUserData.uid,
-      lastMessage: text,
-      timeSent: timeSent,
-    );
-    await firestore
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .collection('chats')
-        .doc(recieverUserId)
-        .set(
-          senderChatContact.toMap(),
-        );
   }
 
   void _saveMessagesToMessageSubcollection({
@@ -135,12 +163,12 @@ class ChatRepository {
     required DateTime timeSent,
     required String messageId,
     required String username,
-    required String recieverUsername,
     required MessageEnum messageType,
     //for replied part
     required MessageReply? messageReply,
     required String senderUsername,
     required String? receiverUsername,
+    required bool isGroup,
   }) async {
     final message = Message(
       senderId: auth.currentUser!.uid,
@@ -160,28 +188,39 @@ class ChatRepository {
       repliedType:
           messageReply == null ? MessageEnum.text : messageReply.messageEnum,
     );
-    //for sender
-    await firestore
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .collection('chats')
-        .doc(receiverId)
-        .collection('messages')
-        .doc(messageId)
-        .set(
-          message.toMap(),
-        );
-    //for reciever
-    await firestore
-        .collection('users')
-        .doc(receiverId)
-        .collection('chats')
-        .doc(auth.currentUser!.uid)
-        .collection('messages')
-        .doc(messageId)
-        .set(
-          message.toMap(),
-        );
+
+    if (isGroup) {
+      await firestore
+          .collection('groups')
+          .doc(receiverId)
+          .collection('chats')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+    } else {
+      await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('chats')
+          .doc(receiverId)
+          .collection('messages')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+      //for reciever
+      await firestore
+          .collection('users')
+          .doc(receiverId)
+          .collection('chats')
+          .doc(auth.currentUser!.uid)
+          .collection('messages')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+    }
   }
 
   void sendTextMessage({
@@ -191,20 +230,25 @@ class ChatRepository {
     required UserModel sender,
     //reply feature
     required MessageReply? messageReply,
+    required bool isGroup,
   }) async {
     try {
       var timeSent = DateTime.now();
       var messageId = const Uuid().v1();
+      UserModel? recieverUserData;
 
-      var userDataMap =
-          await firestore.collection('users').doc(receiverId).get();
-      UserModel recieverUserData = UserModel.fromMap(userDataMap.data()!);
+      if (!isGroup) {
+        var userDataMap =
+            await firestore.collection('users').doc(receiverId).get();
+        recieverUserData = UserModel.fromMap(userDataMap.data()!);
+      }
       _saveDataToContactSubCollection(
         sender,
         recieverUserData,
         message,
         timeSent,
         receiverId,
+        isGroup,
       );
 
       _saveMessagesToMessageSubcollection(
@@ -214,10 +258,10 @@ class ChatRepository {
         messageId: messageId,
         messageType: MessageEnum.text,
         username: sender.name,
-        recieverUsername: recieverUserData.name,
         messageReply: messageReply,
-        receiverUsername: recieverUserData.name,
         senderUsername: sender.name,
+        receiverUsername: recieverUserData?.name,
+        isGroup: isGroup,
       );
     } catch (e) {
       // ignore: use_build_context_synchronously
@@ -233,6 +277,7 @@ class ChatRepository {
     required ProviderRef ref,
     required MessageEnum messageEnum,
     required MessageReply? messageReply,
+    required bool isGroup,
   }) async {
     try {
       var timeSent = DateTime.now();
@@ -242,13 +287,13 @@ class ChatRepository {
           .uploadFile(
               'chat/${messageEnum.type}/${userModel.uid}/$recieverUserId/$messageId',
               file);
+      UserModel? recieverUserData;
 
-      UserModel receiverUserData =
-          await firestore.collection('users').doc(recieverUserId).get().then(
-                (value) => UserModel.fromMap(
-                  value.data()!,
-                ),
-              );
+      if (!isGroup) {
+        var userDataMap =
+            await firestore.collection('users').doc(recieverUserId).get();
+        recieverUserData = UserModel.fromMap(userDataMap.data()!);
+      }
       String message;
       switch (messageEnum) {
         case MessageEnum.image:
@@ -270,10 +315,11 @@ class ChatRepository {
 
       _saveDataToContactSubCollection(
         userModel,
-        receiverUserData,
+        recieverUserData,
         message,
         timeSent,
         recieverUserId,
+        isGroup,
       );
 
       _saveMessagesToMessageSubcollection(
@@ -283,10 +329,10 @@ class ChatRepository {
         messageId: messageId,
         messageType: messageEnum,
         username: userModel.name,
-        recieverUsername: receiverUserData.name,
         messageReply: messageReply,
-        receiverUsername: receiverUserData.name,
+        receiverUsername: recieverUserData?.name,
         senderUsername: userModel.name,
+        isGroup: isGroup,
       );
     } catch (e) {
       // ignore: use_build_context_synchronously

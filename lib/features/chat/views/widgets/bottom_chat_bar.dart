@@ -13,10 +13,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 class BottomChatBar extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool isGroup;
 
   const BottomChatBar({
     super.key,
     required this.receiverUserId,
+    required this.isGroup,
   });
 
   @override
@@ -54,6 +56,7 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
             context,
             messageController.text.trim(),
             widget.receiverUserId,
+            widget.isGroup,
           );
 
       setState(() {
@@ -86,23 +89,15 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
     MessageEnum messageEnum,
   ) {
     ref.read(chatControllerProvider).sendFileMessage(
-          context,
-          file,
-          widget.receiverUserId,
-          messageEnum,
-        );
+        context, file, widget.receiverUserId, messageEnum, widget.isGroup);
   }
 
   void selectImage() async {
     File? image = await pickImageFromGallery(context);
     if (image != null) {
       // ignore: use_build_context_synchronously
-      ref.read(chatControllerProvider).sendFileMessage(
-            context,
-            image,
-            widget.receiverUserId,
-            MessageEnum.image,
-          );
+      ref.read(chatControllerProvider).sendFileMessage(context, image,
+          widget.receiverUserId, MessageEnum.image, widget.isGroup);
     }
   }
 
@@ -115,6 +110,7 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
             video,
             widget.receiverUserId,
             MessageEnum.video,
+            widget.isGroup,
           );
     }
   }

@@ -27,3 +27,6 @@ seprate list for the available contact and all normal contact ... (must !!!!).
 -> improve video container ... and add replay option 
 
 -> improve sound recorder 
+
+
+->group icon in group chat screen 

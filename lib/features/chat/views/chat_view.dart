@@ -12,55 +12,66 @@ class MobileChatScreen extends ConsumerWidget {
 
   final String name;
   final String uid;
+  final bool isGroup;
 
-  const MobileChatScreen({super.key, required this.name, required this.uid});
+  const MobileChatScreen({
+    super.key,
+    required this.name,
+    required this.uid,
+    required this.isGroup,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            StreamBuilder<UserModel>(
-              stream: ref.read(authControllerProvider).userDatebyId(uid),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Loader();
-                }
-                return Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 21,
-                      backgroundImage: CachedNetworkImageProvider(
-                        snapshot.data!.profilePic,
-                      ),
+        title: isGroup
+            ? Text(name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  StreamBuilder<UserModel>(
+                    stream: ref.read(authControllerProvider).userDatebyId(uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Loader();
+                      }
+                      return Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 21,
+                            backgroundImage: CachedNetworkImageProvider(
+                              snapshot.data!.profilePic,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: CircleAvatar(
+                                radius: 7,
+                                backgroundColor: (snapshot.data!.isOnline)
+                                    ? Colors.green
+                                    : Colors.red),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 18,
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: CircleAvatar(
-                          radius: 7,
-                          backgroundColor: (snapshot.data!.isOnline)
-                              ? Colors.green
-                              : Colors.red),
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              name,
-              style: const TextStyle(
-                fontSize: 18,
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -89,10 +100,12 @@ class MobileChatScreen extends ConsumerWidget {
           Expanded(
             child: ChatList(
               receiverId: uid,
+              isGroup: isGroup,
             ),
           ),
           BottomChatBar(
             receiverUserId: uid,
+            isGroup: isGroup,
           ),
         ],
       ),

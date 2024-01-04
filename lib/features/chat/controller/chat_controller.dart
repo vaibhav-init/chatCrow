@@ -38,31 +38,49 @@ class ChatController {
     return chatRepository.getMessages(receiverId);
   }
 
-  void sendTextMessage(BuildContext context, String text, String receiverId) {
+  Stream<List<Message>> getGroupChats(String groupID) {
+    return chatRepository.getGroupMessages(groupID);
+  }
+
+  void sendTextMessage(
+    BuildContext context,
+    String text,
+    String receiverId,
+    bool isGroup,
+  ) {
     final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataProvider).whenData(
           (value) => chatRepository.sendTextMessage(
-              context: context,
-              message: text,
-              receiverId: receiverId,
-              sender: value!,
-              messageReply: messageReply),
+            context: context,
+            message: text,
+            receiverId: receiverId,
+            sender: value!,
+            messageReply: messageReply,
+            isGroup: isGroup,
+          ),
         );
     ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
-  void sendFileMessage(BuildContext context, File file, String receiverId,
-      MessageEnum messageEnum) {
+  void sendFileMessage(
+    BuildContext context,
+    File file,
+    String receiverId,
+    MessageEnum messageEnum,
+    bool isGroup,
+  ) {
     final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataProvider).whenData(
           (value) => chatRepository.sendFileMessage(
-              context: context,
-              file: file,
-              recieverUserId: receiverId,
-              userModel: value!,
-              ref: ref,
-              messageEnum: messageEnum,
-              messageReply: messageReply),
+            context: context,
+            file: file,
+            recieverUserId: receiverId,
+            userModel: value!,
+            ref: ref,
+            messageEnum: messageEnum,
+            messageReply: messageReply,
+            isGroup: isGroup,
+          ),
         );
     ref.read(messageReplyProvider.notifier).update((state) => null);
   }
