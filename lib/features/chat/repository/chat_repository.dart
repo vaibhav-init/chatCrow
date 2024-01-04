@@ -4,6 +4,7 @@ import 'package:chat_crow/common/providers/message_reply_provider.dart';
 import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/models/chat_contact_model.dart';
+import 'package:chat_crow/models/group_model.dart';
 import 'package:chat_crow/models/message_model.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -69,6 +70,19 @@ class ChatRepository {
             timeSent: chatContact.timeSent));
       }
       return contacts;
+    });
+  }
+
+  Stream<List<Group>> getChatGroups() {
+    return firestore.collection('groups').snapshots().map((event) {
+      List<Group> groups = [];
+      for (var document in event.docs) {
+        var group = Group.fromMap(document.data());
+        if (group.membersUid.contains(auth.currentUser!.uid)) {
+          groups.add(group);
+        }
+      }
+      return groups;
     });
   }
 

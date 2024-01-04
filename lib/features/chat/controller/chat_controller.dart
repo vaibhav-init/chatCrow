@@ -4,6 +4,7 @@ import 'package:chat_crow/common/providers/message_reply_provider.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/repository/chat_repository.dart';
 import 'package:chat_crow/models/chat_contact_model.dart';
+import 'package:chat_crow/models/group_model.dart';
 import 'package:chat_crow/models/message_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +28,10 @@ class ChatController {
 
   Stream<List<ChatContact>> chatContact() {
     return chatRepository.getChatContacts();
+  }
+
+  Stream<List<Group>> chatGroups() {
+    return chatRepository.getChatGroups();
   }
 
   Stream<List<Message>> getChats(String receiverId) {
