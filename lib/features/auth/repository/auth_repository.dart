@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/auth/views/details_view.dart';
+import 'package:chat_crow/features/auth/views/login_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -133,5 +134,14 @@ class AuthRepository {
     await firestore.collection('users').doc(auth.currentUser!.uid).update({
       'isOnline': isOnline,
     });
+  }
+
+  void logOut(BuildContext context) {
+    auth.signOut();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      LoginView.route,
+      (route) => false,
+    );
   }
 }

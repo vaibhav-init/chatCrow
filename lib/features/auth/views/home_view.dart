@@ -48,6 +48,10 @@ class _HomeViewState extends ConsumerState<HomeView>
     }
   }
 
+  void logOut(BuildContext context) {
+    ref.read(authControllerProvider).logOut(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,11 +92,14 @@ class _HomeViewState extends ConsumerState<HomeView>
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.logout,
-              size: 24,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: IconButton(
+              onPressed: () => logOut(context),
+              icon: const Icon(
+                Icons.logout,
+                size: 24,
+              ),
             ),
           ),
         ],
