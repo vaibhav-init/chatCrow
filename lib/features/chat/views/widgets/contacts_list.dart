@@ -38,6 +38,7 @@ class ContactsList extends ConsumerWidget {
                                   'name': groupData.name,
                                   'uid': groupData.groupId,
                                   'isGroup': true,
+                                  'profilePic': groupData.groupPic,
                                 }),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
@@ -97,6 +98,7 @@ class ContactsList extends ConsumerWidget {
                                   'name': chatContactData.name,
                                   'uid': chatContactData.contactId,
                                   'isGroup': false,
+                                  'profilePic': chatContactData.profilePic,
                                 }),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),

@@ -47,6 +47,8 @@ class ContactRepository {
           Navigator.pushNamed(context, MobileChatScreen.route, arguments: {
             'name': userData.name,
             'uid': userData.uid,
+            'isGroup': false,
+            'profilePic': userData.profilePic,
           });
         }
       }
