@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:chat_crow/common/utils.dart';
+import 'package:chat_crow/features/call/views/call_view.dart';
 import 'package:chat_crow/models/call_model.dart';
 import 'package:chat_crow/models/group_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,16 +42,16 @@ class CallRepository {
           .doc(senderCallData.receiverId)
           .set(receiverCallData.toMap());
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => CallScreen(
-      //       channelId: senderCallData.callId,
-      //       call: senderCallData,
-      //       isGroupChat: false,
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CallScreen(
+            channelId: senderCallData.callId,
+            call: senderCallData,
+            isGroupChat: false,
+          ),
+        ),
+      );
     } catch (e) {
       showSnackbar(context: context, text: e.toString());
     }
@@ -80,16 +81,16 @@ class CallRepository {
             .set(receiverCallData.toMap());
       }
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => CallScreen(
-      //       channelId: senderCallData.callId,
-      //       call: senderCallData,
-      //       isGroupChat: true,
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CallScreen(
+            channelId: senderCallData.callId,
+            call: senderCallData,
+            isGroupChat: true,
+          ),
+        ),
+      );
     } catch (e) {
       showSnackbar(context: context, text: e.toString());
     }

@@ -25,7 +25,7 @@ class CallScreen extends ConsumerStatefulWidget {
 
 class _CallScreenState extends ConsumerState<CallScreen> {
   AgoraClient? client;
-  String baseUrl = 'https://whatsapp-clone-rrr.herokuapp.com';
+  String baseUrl = 'https://wild-gold-crow-toga.cyclic.app';
 
   @override
   void initState() {
