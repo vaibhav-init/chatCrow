@@ -186,33 +186,12 @@ class _BottomChatBarState extends ConsumerState<BottomChatBar> {
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           child: ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.camera),
-                            label: const Text('Camera'),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: ElevatedButton.icon(
                             onPressed: () {
                               Navigator.pop(context);
                               selectImage();
                             },
                             icon: const Icon(Icons.photo),
-                            label: const Text('Gallery'),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.gif),
-                            label: const Text('Gif'),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.mic),
-                            label: const Text('Audio'),
+                            label: const Text('Photo'),
                           ),
                         ),
                         PopupMenuItem(
