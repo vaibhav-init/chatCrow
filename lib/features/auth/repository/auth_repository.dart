@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:chat_crow/common/repositories/firebase_storage_repository.dart';
 import 'package:chat_crow/common/utils.dart';
 import 'package:chat_crow/features/auth/views/details_view.dart';
+import 'package:chat_crow/features/auth/views/home_view.dart';
 import 'package:chat_crow/features/auth/views/login_view.dart';
 import 'package:chat_crow/features/auth/views/otp_view.dart';
 import 'package:chat_crow/models/user_model.dart';
@@ -103,6 +104,16 @@ class AuthRepository {
         await firestore.collection('users').doc(uid).set(
               user.toMap(),
             );
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeView(),
+          ),
+          (route) => false,
+        );
+      } else {
+        showSnackbar(context: context, text: 'Please select a profile picture');
       }
     } catch (e) {
       showSnackbar(

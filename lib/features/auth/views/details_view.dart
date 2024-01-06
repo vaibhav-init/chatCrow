@@ -4,7 +4,6 @@ import 'package:chat_crow/common/widgets/custom_textfield.dart';
 import 'package:chat_crow/common/widgets/rounded_button.dart';
 import 'package:chat_crow/constants/constants.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
-import 'package:chat_crow/features/auth/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +29,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
     super.dispose();
   }
 
-  void saveUserData() async {
+  void saveUserData() {
     String name = nameController.text.trim();
     if (name.isNotEmpty) {
       ref.read(authControllerProvider).saveUserDataToFirebase(
@@ -38,13 +37,6 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
             name,
             image,
           );
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeView(),
-        ),
-        (route) => false,
-      );
     } else {
       showSnackbar(
         context: context,
