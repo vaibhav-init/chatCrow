@@ -73,8 +73,8 @@ class ContactsView extends ConsumerWidget {
                       ),
                       subtitle: Text(
                         (data[index].phones.isEmpty)
-                            ? 'No Phone Numner'
-                            : data[index].phones[0].number,
+                            ? 'No Phone Number'
+                            : data[index].phones[0].number.replaceAll(' ', ''),
                         style: defaultCustomTextStyle.copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 14,

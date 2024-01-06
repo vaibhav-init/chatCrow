@@ -136,8 +136,8 @@ class AuthRepository {
     });
   }
 
-  void logOut(BuildContext context) {
-    auth.signOut();
+  Future<void> logOut(BuildContext context) async {
+    await auth.signOut();
     Navigator.pushNamedAndRemoveUntil(
       context,
       LoginView.route,

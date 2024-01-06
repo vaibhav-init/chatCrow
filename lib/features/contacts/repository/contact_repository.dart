@@ -41,6 +41,9 @@ class ContactRepository {
         var userData = UserModel.fromMap(document.data());
         var selectedNumber =
             selectedContact.phones[0].number.replaceAll(' ', '');
+        if (selectedNumber[0] != '+') {
+          selectedNumber = '+91$selectedNumber';
+        }
 
         if (selectedNumber == userData.phoneNumber) {
           found = true;
