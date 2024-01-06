@@ -12,10 +12,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   animated_text_kit: ^4.2.2
-  firebase_core: ^2.21.0
-  firebase_auth: ^4.12.1
-  cloud_firestore: ^4.12.2
-  firebase_storage: ^11.4.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  firebase_storage: ^11.6.0
   flutter_svg: ^2.0.9
   country_picker: ^2.0.22
   flutter_riverpod: ^2.4.5

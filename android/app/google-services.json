@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "848418005834",
-    "project_id": "chatcrow-8e349",
-    "storage_bucket": "chatcrow-8e349.appspot.com"
+    "project_number": "1017454735605",
+    "project_id": "chatcrow-backend",
+    "storage_bucket": "chatcrow-backend.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:848418005834:android:4dfa52a1e394d1fd2817b3",
+        "mobilesdk_app_id": "1:1017454735605:android:b4e52f818e6336276155bc",
         "android_client_info": {
           "package_name": "com.app.chat.crow"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDZuqU4MgPBub0wZ7DprRTpLrBiLJcu3U0"
+          "current_key": "AIzaSyDjOPgmH0icpK3lbOo878C08l3xcL7-Juc"
         }
       ],
       "services": {

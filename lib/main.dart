@@ -4,15 +4,21 @@ import 'package:chat_crow/constants/router.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/auth/views/home_view.dart';
 import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
-import 'package:chat_crow/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    name: 'chatcrow-backend',
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDjOPgmH0icpK3lbOo878C08l3xcL7-Juc',
+      appId: '1:1017454735605:android:b4e52f818e6336276155bc',
+      messagingSenderId: '1017454735605',
+      projectId: 'chatcrow-backend',
+    ),
   );
 
   runApp(
