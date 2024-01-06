@@ -25,7 +25,7 @@ dependencies:
   uuid: ^3.0.6
   intl: ^0.18.1
   cached_network_image: ^3.3.1
-  cached_video_player: ^2.0.4
+  cached_video_player_plus: ^2.0.0
   emoji_picker_flutter: ^1.6.3
   flutter_sound: ^9.2.13
   path_provider: ^2.0.11

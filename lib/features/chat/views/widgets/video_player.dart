@@ -1,4 +1,4 @@
-import 'package:cached_video_player/cached_video_player.dart';
+import 'package:cached_video_player_plus/cached_video_player_plus.dart';
 import 'package:flutter/material.dart';
 
 class VideoPlayerUI extends StatefulWidget {
@@ -10,12 +10,12 @@ class VideoPlayerUI extends StatefulWidget {
 }
 
 class _VideoPlayerUIState extends State<VideoPlayerUI> {
-  late CachedVideoPlayerController controller;
+  late CachedVideoPlayerPlusController controller;
   bool isPlaying = false;
   @override
   void initState() {
-    controller = CachedVideoPlayerController.network(
-      widget.videoUrl,
+    controller = CachedVideoPlayerPlusController.networkUrl(
+      Uri.parse(widget.videoUrl),
     )..initialize().then((_) {
         controller.setVolume(1);
       });
@@ -34,7 +34,7 @@ class _VideoPlayerUIState extends State<VideoPlayerUI> {
       aspectRatio: 16 / 9,
       child: Stack(
         children: [
-          CachedVideoPlayer(controller),
+          CachedVideoPlayerPlus(controller),
           Align(
             alignment: Alignment.center,
             child: IconButton(
