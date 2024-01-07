@@ -5,6 +5,7 @@ import 'package:chat_crow/features/group/views/create_group_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -95,7 +96,44 @@ class _HomeViewState extends ConsumerState<HomeView>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: IconButton(
-              onPressed: () => logOut(context),
+              onPressed: () {
+                Alert(
+                  context: context,
+                  type: AlertType.info,
+                  title: "LOGOUT",
+                  desc: "Do You Really Want to Logout?",
+                  style: const AlertStyle(
+                    titleStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    descStyle: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  buttons: [
+                    DialogButton(
+                      color: Colors.red,
+                      onPressed: () => logOut(context),
+                      width: 120,
+                      child: const Text(
+                        "YES",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    DialogButton(
+                      color: Colors.green,
+                      onPressed: () => Navigator.pop(context),
+                      width: 120,
+                      child: const Text(
+                        "NO",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    )
+                  ],
+                ).show();
+              },
               icon: const Icon(
                 Icons.logout,
                 size: 24,
