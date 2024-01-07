@@ -32,6 +32,7 @@ dependencies:
   permission_handler: ^11.1.0
   audioplayers: ^1.0.1
   swipe_to: ^1.0.2
+  flutter_dotenv: ^5.1.0
   
 
 dev_dependencies:
@@ -45,6 +46,7 @@ flutter:
     - assets/fonts/
     - assets/svgs/
     - assets/audios/
+    - .env
 
   fonts:
     - family: Ubuntu

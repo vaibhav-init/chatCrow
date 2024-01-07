@@ -6,18 +6,20 @@ import 'package:chat_crow/features/auth/views/home_view.dart';
 import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
     name: 'chatcrow-backend',
-    options: const FirebaseOptions(
-      apiKey: 'AIzaSyDjOPgmH0icpK3lbOo878C08l3xcL7-Juc',
-      appId: '1:1017454735605:android:b4e52f818e6336276155bc',
-      messagingSenderId: '1017454735605',
-      projectId: 'chatcrow-backend',
+    options: FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',
+      appId: dotenv.env['FIREBASE_APP_ID'] ?? '',
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'] ?? '',
+      projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? '',
     ),
   );
 
