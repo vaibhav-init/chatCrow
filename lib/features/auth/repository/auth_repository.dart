@@ -11,6 +11,7 @@ import 'package:chat_crow/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authRepositoryProvider = Provider(
@@ -30,6 +31,7 @@ class AuthRepository {
   });
 
   void phoneNumberSignIn(String phone, BuildContext context) async {
+    EasyLoading.show(status: 'loading...');
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: phone,
@@ -48,7 +50,9 @@ class AuthRepository {
         },
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
+      EasyLoading.dismiss();
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       showSnackbar(
         context: context,
         text: e.message!,
@@ -61,6 +65,8 @@ class AuthRepository {
     required String verificationId,
     required String otp,
   }) async {
+    EasyLoading.show(status: 'loading...');
+
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -72,11 +78,13 @@ class AuthRepository {
         DetailsView.route,
         (route) => false,
       );
+      EasyLoading.dismiss();
     } on FirebaseAuthException catch (e) {
       showSnackbar(
         context: context,
         text: e.message!,
       );
+      EasyLoading.dismiss();
     }
   }
 
@@ -86,6 +94,7 @@ class AuthRepository {
     required ProviderRef ref,
     required BuildContext context,
   }) async {
+    EasyLoading.show(status: 'loading...');
     try {
       String uid = auth.currentUser!.uid;
       // ignore: unused_local_variable
@@ -115,7 +124,10 @@ class AuthRepository {
       } else {
         showSnackbar(context: context, text: 'Please select a profile picture');
       }
+      EasyLoading.dismiss();
     } catch (e) {
+      EasyLoading.dismiss();
+
       showSnackbar(
         context: context,
         text: e.toString(),
@@ -148,11 +160,13 @@ class AuthRepository {
   }
 
   Future<void> logOut(BuildContext context) async {
+    EasyLoading.show(status: 'loading...');
     await auth.signOut();
     Navigator.pushNamedAndRemoveUntil(
       context,
       LoginView.route,
       (route) => false,
     );
+    EasyLoading.dismiss();
   }
 }

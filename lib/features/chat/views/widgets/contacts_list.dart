@@ -40,8 +40,8 @@ class ContactsList extends ConsumerWidget {
                                   'isGroup': true,
                                   'profilePic': groupData.groupPic,
                                 }),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Card(
+                              elevation: 0.5,
                               child: ListTile(
                                 title: Text(
                                   groupData.name,
@@ -72,7 +72,6 @@ class ContactsList extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          const Divider(color: Colors.red, indent: 85),
                         ],
                       );
                     },
@@ -100,8 +99,8 @@ class ContactsList extends ConsumerWidget {
                                   'isGroup': false,
                                   'profilePic': chatContactData.profilePic,
                                 }),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Card(
+                              elevation: 0.5,
                               child: ListTile(
                                 title: Text(
                                   chatContactData.name,
@@ -133,7 +132,6 @@ class ContactsList extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          const Divider(color: Colors.red, indent: 85),
                         ],
                       );
                     },

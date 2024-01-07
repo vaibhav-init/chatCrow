@@ -7,6 +7,7 @@ import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
@@ -58,6 +59,7 @@ class ChatCrow extends ConsumerWidget {
             },
             loading: () => const Loader(),
           ),
+      builder: EasyLoading.init(),
     );
   }
 }
