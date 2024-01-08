@@ -3,7 +3,6 @@ import 'package:chat_crow/common/widgets/loader.dart';
 import 'package:chat_crow/constants/router.dart';
 import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/auth/views/home_view.dart';
-import 'package:chat_crow/features/notification/repository/notification_repository.dart';
 import 'package:chat_crow/features/onboarding/views/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +37,6 @@ class ChatCrow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(notificationRepositoryProvider).initNotifications();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "ChatCrow",
