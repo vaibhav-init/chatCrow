@@ -2,6 +2,7 @@ import 'package:chat_crow/features/auth/controller/auth_controller.dart';
 import 'package:chat_crow/features/chat/views/widgets/contacts_list.dart';
 import 'package:chat_crow/features/contacts/views/contact_view.dart';
 import 'package:chat_crow/features/group/views/create_group_view.dart';
+import 'package:chat_crow/features/notification/controller/notification_controller.dart';
 import 'package:chat_crow/features/notification/repository/notification_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,10 +57,8 @@ class _HomeViewState extends ConsumerState<HomeView>
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(notificationRepositoryProvider).initNotifications();
-    ref.watch(notificationRepositoryProvider).saveFCMToken(
-          context: context,
-        );
+    ref.watch(notificationControllerProvider).initNotifications();
+    ref.watch(notificationControllerProvider).saveFcmToken(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
