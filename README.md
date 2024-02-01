@@ -5,11 +5,11 @@ Chat app for Android.
 #### Screenshots:
 
 
-<img src="https://i.ibb.co/NsgK8gf/Screenshot-from-2023-11-03-01-02-39.png" width="800" height="400">
-
-<img src="https://i.ibb.co/hRKYCCg/ss2.png" width="800" height="400">
-
-<img src="https://i.ibb.co/d0TYJWJ/ss3.png" width="800" height="400">
+<p float="left">
+  <img src="https://i.ibb.co/grk175Z/Whats-App-Image-2024-01-27-at-12-26-37-AM.jpg" width="300" height="650">
+  <img src="https://i.ibb.co/ZMSG4VG/Whats-App-Image-2024-01-27-at-12-27-27-AM.jpg" width="300" height="650">
+  <img src="https://i.ibb.co/Y3DvqdH/Whats-App-Image-2024-01-27-at-12-26-26-AM.jpg" width="300" height="650">
+</p>
 
 
 
